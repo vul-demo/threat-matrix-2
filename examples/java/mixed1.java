@@ -55,8 +55,81 @@ private void validate(){
         }
         }
 
-//https://github.com/spring-projects/spring-security/blob/5.5.6/crypto/src/main/java/org/springframework/security/crypto/codec/Base64.java
-    private static int decode4to3(final byte[] source, final int srcOffset, final byte[] destination,
+// Taken from: https://github.com/spring-projects/spring-security/blob/5.5.6/crypto/src/main/java/org/springframework/security/crypto/codec/Base64.java
+private static byte[] encodeBytesToBytes(byte[] source, int off, int len, int options) {
+
+		if (source == null) {
+			throw new NullPointerException("Cannot serialize a null array.");
+		} // end if: null
+
+		if (off < 0) {
+			throw new IllegalArgumentException("Cannot have negative offset: " + off);
+		} // end if: off < 0
+
+		if (len < 0) {
+			throw new IllegalArgumentException("Cannot have length offset: " + len);
+		} // end if: len < 0
+
+		if (off + len > source.length) {
+			throw new IllegalArgumentException(String.format(
+					"Cannot have offset of %d and length of %d with array of length %d", off, len, source.length));
+		} // end if: off < 0
+
+		boolean breakLines = (options & DO_BREAK_LINES) > 0;
+
+		// int len43 = len * 4 / 3;
+		// byte[] outBuff = new byte[ ( len43 ) // Main 4:3
+		// + ( (len % 3) > 0 ? 4 : 0 ) // Account for padding
+		// + (breakLines ? ( len43 / MAX_LINE_LENGTH ) : 0) ]; // New lines
+		// Try to determine more precisely how big the array needs to be.
+		// If we get it right, we don't have to do an array copy, and
+		// we save a bunch of memory.
+
+		// Bytes needed for actual encoding
+		int encLen = (len / 3) * 4 + ((len % 3 > 0) ? 4 : 0);
+
+		if (breakLines) {
+			encLen += encLen / MAX_LINE_LENGTH; // Plus extra newline characters
+		}
+		byte[] outBuff = new byte[encLen];
+
+		int d = 0;
+		int e = 0;
+		int len2 = len - 2;
+		int lineLength = 0;
+		for (; d < len2; d += 3, e += 4) {
+			encode3to4(source, d + off, 3, outBuff, e, options);
+
+			lineLength += 4;
+			if (breakLines && lineLength >= MAX_LINE_LENGTH) {
+				outBuff[e + 4] = NEW_LINE;
+				e++;
+				lineLength = 0;
+			} // end if: end of line
+		} // en dfor: each piece of array
+
+		if (d < len) {
+			encode3to4(source, d + off, len - d, outBuff, e, options);
+			e += 4;
+		} // end if: some padding needed
+
+		// Only resize array if we didn't guess it right.
+		if (e <= outBuff.length - 1) {
+			byte[] finalOut = new byte[e];
+			System.arraycopy(outBuff, 0, finalOut, 0, e);
+			// System.err.println("Having to resize array from " + outBuff.length + " to "
+			// + e );
+			return finalOut;
+		}
+		else {
+			// System.err.println("No need to resize array.");
+			return outBuff;
+		}
+	}        
+        
+// Taken from: https://github.com/spring-projects/spring-security/blob/5.5.6/crypto/src/main/java/org/springframework/security/crypto/codec/Base64.java
+// Origin: hoos/genesis: master
+private static int decode4to3(final byte[] source, final int srcOffset, final byte[] destination,
                                   final int destOffset, final int options) {
 
         // Lots of error checking and exception throwing
