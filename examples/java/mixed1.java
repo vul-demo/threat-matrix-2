@@ -1,24 +1,4 @@
 private class mixed1 {
-// https://github.com/spring-projects/spring-kafka/blob/v2.7.3/spring-kafka/src/main/java/org/springframework/kafka/streams/RecoveringDeserializationExceptionHandler.java
-public void configure(Map<String, ?> configs) {
-	if (configs.containsKey(KSTREAM_DESERIALIZATION_RECOVERER)) {
-		Object configValue = configs.get(KSTREAM_DESERIALIZATION_RECOVERER);
-		if (configValue instanceof ConsumerRecordRecoverer) {
-			this.recoverer = (ConsumerRecordRecoverer) configValue;
-		}
-		else if (configValue instanceof String) {
-			fromString(configValue);
-		}
-		else if (configValue instanceof Class) {
-			fromClass(configValue);
-		}
-		else {
-			LOGGER.error("Unkown property type for " + KSTREAM_DESERIALIZATION_RECOVERER
-					+ "; failed deserializations cannot be recovered");
-		}
-	}
-
-}
 
 // https://github.com/spring-projects/spring-authorization-server/blob/0.1.2/oauth2-authorization-server/src/main/java/org/springframework/security/oauth2/core/OAuth2TokenIntrospection.java
 private void validate(){
