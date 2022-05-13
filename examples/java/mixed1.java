@@ -1,35 +1,24 @@
 private class mixed1 {
-// https://raw.githubusercontent.com/spring-projects/spring-kafka/main/spring-kafka/src/main/java/org/springframework/kafka/core/DefaultKafkaConsumerFactory.java
-private Consumer<K, V> createConsumerWithAdjustedProperties(@Nullable String groupId,String clientIdPrefix,
-@Nullable Properties properties,boolean overrideClientIdPrefix,String clientIdSuffix,
-        boolean shouldModifyClientId){
+// https://github.com/spring-projects/spring-kafka/blob/v2.7.3/spring-kafka/src/main/java/org/springframework/kafka/streams/RecoveringDeserializationExceptionHandler.java
+public void configure(Map<String, ?> configs) {
+	if (configs.containsKey(KSTREAM_DESERIALIZATION_RECOVERER)) {
+		Object configValue = configs.get(KSTREAM_DESERIALIZATION_RECOVERER);
+		if (configValue instanceof ConsumerRecordRecoverer) {
+			this.recoverer = (ConsumerRecordRecoverer) configValue;
+		}
+		else if (configValue instanceof String) {
+			fromString(configValue);
+		}
+		else if (configValue instanceof Class) {
+			fromClass(configValue);
+		}
+		else {
+			LOGGER.error("Unkown property type for " + KSTREAM_DESERIALIZATION_RECOVERER
+					+ "; failed deserializations cannot be recovered");
+		}
+	}
 
-        Map<String, Object> modifiedConfigs=new HashMap<>(this.configs);
-        if(groupId!=null){
-        modifiedConfigs.put(ConsumerConfig.GROUP_ID_CONFIG,groupId);
-        }
-        if(shouldModifyClientId){
-        modifiedConfigs.put(ConsumerConfig.CLIENT_ID_CONFIG,
-        (overrideClientIdPrefix?clientIdPrefix
-        :modifiedConfigs.get(ConsumerConfig.CLIENT_ID_CONFIG))+clientIdSuffix);
-        }
-        if(properties!=null){
-        Set<String> stringPropertyNames=properties.stringPropertyNames();  // to get any nested default Properties
-        stringPropertyNames
-        .stream()
-        .filter(name->!name.equals(ConsumerConfig.CLIENT_ID_CONFIG)
-        &&!name.equals(ConsumerConfig.GROUP_ID_CONFIG))
-        .forEach(name->modifiedConfigs.put(name,properties.getProperty(name)));
-        properties.entrySet().stream()
-        .filter(entry->!entry.getKey().equals(ConsumerConfig.CLIENT_ID_CONFIG)
-        &&!entry.getKey().equals(ConsumerConfig.GROUP_ID_CONFIG)
-        &&!stringPropertyNames.contains(entry.getKey())
-        &&entry.getKey()instanceof String)
-        .forEach(entry->modifiedConfigs.put((String)entry.getKey(),entry.getValue()));
-        checkInaccessible(properties,modifiedConfigs);
-        }
-        return createKafkaConsumer(modifiedConfigs);
-        }
+}
 
 // https://github.com/spring-projects/spring-authorization-server/blob/0.1.2/oauth2-authorization-server/src/main/java/org/springframework/security/oauth2/core/OAuth2TokenIntrospection.java
 private void validate(){
