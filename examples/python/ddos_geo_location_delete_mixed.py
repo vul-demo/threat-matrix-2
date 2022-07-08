@@ -1,6 +1,43 @@
 from a10sdk.common.A10BaseClass import A10BaseClass
 
 
+
+
+import io.threatrix.eventsystem.EventManager;
+import io.threatrix.eventsystem.events.events.HumanNotificationEvent;
+import io.threatrix.eventsystem.subscribers.HumanNotificationEventEmailSubscriber;
+import io.threatrix.eventsystem.subscribers.HumanNotificationEventSlackSubscriber;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import javax.annotation.PostConstruct;
+import java.util.Arrays;
+
+@Service
+public class HumanNotificationService {
+
+    @Autowired
+    private EventManager eventManager;
+    @Autowired
+    private HumanNotificationEventEmailSubscriber emailSubscriber;
+    @Autowired
+    private HumanNotificationEventSlackSubscriber slackSubscriber;
+
+    @PostConstruct
+    private void init() {
+        eventManager.subscribe(HumanNotificationEvent.class, emailSubscriber);
+        eventManager.subscribe(HumanNotificationEvent.class, slackSubscriber);
+    }
+
+
+    public void sendNotification(String message) {
+        eventManager.publish(new HumanNotificationEvent(message));
+    }
+
+    public void sendNotification(Class clazz, Exception e) {
+        eventManager.publish(new HumanNotificationEvent("Exception at " + clazz.getName() + ": " + e.getMessage() + "\n" + Arrays.toString(e.getStackTrace())));
+    }
+
 class MessageDigestCfg(A10BaseClass):
     
     """This class does not support CRUD Operations please use parent.
