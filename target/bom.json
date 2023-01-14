@@ -1,10 +1,10 @@
 {
   "bomFormat" : "CycloneDX",
   "specVersion" : "1.3",
-  "serialNumber" : "urn:uuid:547a59c8-9d04-47b8-bb50-f187d0c6a523",
+  "serialNumber" : "urn:uuid:6f40d228-49b7-417c-8f65-69a4aa07148e",
   "version" : 1,
   "metadata" : {
-    "timestamp" : "2022-07-20T02:03:10Z",
+    "timestamp" : "2022-11-09T22:49:39Z",
     "tools" : [
       {
         "vendor" : "CycloneDX",
@@ -1785,7 +1785,7 @@
       "group" : "com.vaadin.external.google",
       "name" : "android-json",
       "version" : "0.0.20131108.vaadin1",
-      "description" : "����JSON (JavaScript Object Notation) is a lightweight data-interchange format. This is the org.json compatible Android implementation extracted from the Android SDK ��",
+      "description" : "  JSON (JavaScript Object Notation) is a lightweight data-interchange format. This is the org.json compatible Android implementation extracted from the Android SDK  ",
       "hashes" : [
         {
           "alg" : "MD5",
