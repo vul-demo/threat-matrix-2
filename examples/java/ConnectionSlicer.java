@@ -9,7 +9,7 @@ import io.threatrix.ingest.apiimpl.deptrack.DependencyTrackResult;
 import io.threatrix.ingest.dao.project.ComponentLicenseLookupService;
 
 @Service
-public class Silce {
+public class ConnectionSilce {
 
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass().getName());
