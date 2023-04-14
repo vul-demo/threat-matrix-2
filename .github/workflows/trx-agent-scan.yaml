@@ -1,0 +1,16 @@
+on:
+  pull_request:
+    types:
+      - 'opened'
+      - 'reopened'
+jobs:
+  execute-scan-workflow:
+    uses: threatrix/threat-agent-scan/.github/workflows/scan-repo-reusable.yaml@master
+    with:
+      eid: 3d514e57-9c29-4a7e-81eb-fdbff43fd297
+      oid: 80a4f33a-ec0c-4693-b2a0-3d4d461781ec
+      app-name: threat-matrix-2
+      trx-host: http://35.202.162.92
+    secrets:
+      TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      THREATRIX_SERVER_API_KEY: ${{ secrets.TRX_API_KEY }}
