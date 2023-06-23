@@ -27,3 +27,33 @@
                 }
             }
         }
+
+        // Two forms of EOF as far as base64 decoder is concerned: actual
+        // EOF (-1) and first time '=' character is encountered in stream.
+        // This approach makes the '=' padding characters completely optional.
+        if (context.eof && context.modulus != 0) {
+            final byte[] buffer = ensureBufferSize(decodeSize, context);
+
+            // We have some spare bits remaining
+            // Output all whole multiples of 8 bits and ignore the rest
+            switch (context.modulus) {
+//              case 0 : // impossible, as excluded above
+                case 1 : // 6 bits - either ignore entirely, or raise an exception
+                    validateTrailingCharacter();
+                    break;
+                case 2 : // 12 bits = 8 + 4
+                    validateCharacter(MASK_4BITS, context);
+                    context.ibitWorkArea = context.ibitWorkArea >> 4; // dump the extra 4 bits
+                    buffer[context.pos++] = (byte) ((context.ibitWorkArea) & MASK_8BITS);
+                    break;
+                case 3 : // 18 bits = 8 + 8 + 2
+                    validateCharacter(MASK_2BITS, context);
+                    context.ibitWorkArea = context.ibitWorkArea >> 2; // dump 2 bits
+                    buffer[context.pos++] = (byte) ((context.ibitWorkArea >> 8) & MASK_8BITS);
+                    buffer[context.pos++] = (byte) ((context.ibitWorkArea) & MASK_8BITS);
+                    break;
+                default:
+                    throw new IllegalStateException("Impossible modulus " + context.modulus);
+            }
+        }
+    }
