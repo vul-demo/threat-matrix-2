@@ -6,12 +6,12 @@ void decode(final byte[] input, int inPos, final int inAvail, final Context cont
             context.eof = true;
         }
         for(int i = 0; i < inAvail; i++) {
+            final byte[] buffer = ensureBufferSize(decodeSize, context);
             final byte b = input[inPos++];
             if(b == PAD) {
                 context.eof = true;
                 break;
             }
-            final byte[] buffer = ensureBufferSize(decodeSize, context);
             if(b >= 0 && b < DECODE_TABLE.length) {
                 final int result = DECODE_TABLE[b];
                 if(result >= 0) {
