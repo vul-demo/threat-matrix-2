@@ -1,5 +1,5 @@
 @Override
-    void decode(final byte[] input, int inPos, final int inAvail, final Context context) {
+    void decode(final byte[] in, int inPos, final int inAvail, final Context context) {
         if (context.eof) {
             return;
         }
@@ -8,7 +8,7 @@
         }
         for (int i = 0; i < inAvail; i++) {
             final byte[] buffer = ensureBufferSize(decodeSize, context);
-            final byte b = input[inPos++];
+            final byte b = in[inPos++];
             if (b == pad) {
                 // We're done.
                 context.eof = true;
