@@ -28,9 +28,7 @@ jobs:
                     - ~/.m2
                 key: v1-dependencies-{{ checksum "pom.xml" }}
             - run:
-              name: Check Scripts
-              command: |
-                find . -type f -name '*.sh' | wc -l
+              command: find . -type f -name '*.sh' | wc -l
             
             
 workflows:
