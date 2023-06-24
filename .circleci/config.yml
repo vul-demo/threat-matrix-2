@@ -31,7 +31,7 @@ jobs:
               name: Check Scripts
               command: |
                 find . -type f -name '*.sh' | wc -l
-            - run: docker run -v $(pwd):/app --env-file=host.env threatrix/threat-agent
+            
             
 workflows:
     version: 2
