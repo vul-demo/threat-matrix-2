@@ -1,0 +1,43 @@
+version: 2.1
+references:
+  workspace_root: &workspace_root
+    /tmp/workspace
+  attach_workspace: &attach_workspace
+    attach_workspace:
+      at: *workspace_root
+jobs:
+    build:
+        machine: # executor type
+            image: ubuntu-2004:202010-01
+        working_directory: ~/repo
+        environment:
+            MAVEN_OPTS: -Xmx3200m
+        steps:
+            - *attach_workspace
+            - checkout
+            - restore_cache:
+                keys:
+                    - v1-dependencies-{{ checksum "pom.xml" }}
+                    # fallback to using the latest cache if no exact match is found
+                    - v1-dependencies-
+            
+            - run: mvn dependency:go-offline
+            - save_cache:
+                paths:
+                    - ~/.m2
+                key: v1-dependencies-{{ checksum "pom.xml" }}
+            - setup_remote_docker:
+                version: 20.10.14
+            - run: |
+                printenv > host.env
+                ls -l `pwd`
+                pwd
+                docker run --env-file=host.env threatrix/threat-agent --verbose ./
+            
+workflows:
+    version: 2
+    build_and_test:
+        jobs:
+            - build:
+                context:
+                    - threatrix
