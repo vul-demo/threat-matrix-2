@@ -27,14 +27,11 @@ jobs:
                 paths:
                     - ~/.m2
                 key: v1-dependencies-{{ checksum "pom.xml" }}
-                    
-    scan:
-        docker:
-            - image: threatrix/threat-agent
+            - run: |    
+              docker run -v $(pwd):/app --env-file=host.env threatrix/threat-agent
             
 workflows:
     version: 2
     build_and_test:
         jobs:
             - build
-            - scan
