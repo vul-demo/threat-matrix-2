@@ -34,7 +34,9 @@ jobs:
                     printenv > host.env
                     cat host.env
             - run: docker run -v /home/circleci/repo:/app --env-file=host.env threatrix/threat-agent /home/circleci/repo
-                
+            - run:
+                command: |
+                    cat logs/agent.log
             
 workflows:
     version: 2
