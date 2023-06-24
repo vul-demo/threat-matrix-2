@@ -28,7 +28,8 @@ jobs:
                     - ~/.m2
                 key: v1-dependencies-{{ checksum "pom.xml" }}
             - run: |
-              command: printenv > host.env
+              command: |
+                printenv > host.env
             - run: docker run -v $(pwd):/app --env-file=host.env threatrix/threat-agent
             
 workflows:
