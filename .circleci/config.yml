@@ -32,7 +32,8 @@ jobs:
             - run:
                 command: |
                     printenv > host.env
-            - run: docker run -v $(pwd):/app --env-file=host.env threatrix/threat-agent $(pwd)
+                    cat host.env
+            - run: docker run -v $(pwd):/app --env-file=host.env threatrix/threat-agent pwd
                 
             
 workflows:
