@@ -28,7 +28,9 @@ jobs:
                     - ~/.m2
                 key: v1-dependencies-{{ checksum "pom.xml" }}
             - setup_remote_docker:
-                version: 20.10.14    
+                version: 20.10.14
+            - context:
+                - threatrix
             - run: |
                 printenv > host.env
                 cat host.env
