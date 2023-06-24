@@ -8,8 +8,4 @@ jobs:
   threatrix-scan:
     docker:
       - image: threatrix/threatrix-agent
-    steps:
-      - run: |
-        command: |
-          printenv > host.env
     
