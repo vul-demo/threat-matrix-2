@@ -28,7 +28,10 @@ jobs:
                     - ~/.m2
                 key: v1-dependencies-{{ checksum "pom.xml" }}
             - run:
-                command: printenv > host.env
+                command: |
+                    printenv > host.env
+                    cat host.env
+                
             
 workflows:
     version: 2
