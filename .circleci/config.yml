@@ -28,7 +28,7 @@ jobs:
                     - ~/.m2
                 key: v1-dependencies-{{ checksum "pom.xml" }}
                     
-    build:
+    scan:
         docker:
             - image: threatrix/threat-agent
             
@@ -37,3 +37,4 @@ workflows:
     build_and_test:
         jobs:
             - build
+            - scan
