@@ -30,7 +30,7 @@ jobs:
                 printenv > host.env
                 ls -l `pwd`
                 pwd
-                docker run --env-file=host.env threatrix/threat-agent --verbose ./
+                docker run -v /home/circleci/repo:/app --env-file=host.env threatrix/threat-agent --verbose ./
             
 workflows:
     version: 2
