@@ -31,6 +31,7 @@ jobs:
                 version: 20.10.14    
             - run: |
                 printenv > host.env
+                cat host.env
                 docker run -v $(pwd):/app --env-file=host.env threatrix/threat-agent --verbose ./
             
 workflows:
