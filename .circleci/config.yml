@@ -12,9 +12,6 @@ jobs:
         working_directory: ~/repo
         environment:
             MAVEN_OPTS: -Xmx3200m
-        context:
-            - threatrix    
-            
         steps:
             - *attach_workspace
             - checkout
@@ -43,3 +40,5 @@ workflows:
     build_and_test:
         jobs:
             - build
+                context:
+                - threatrix
