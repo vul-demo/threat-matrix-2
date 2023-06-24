@@ -31,8 +31,6 @@ jobs:
             - run: |
                 printenv > host.env
                 cat host.env
-                command: echo $THREATRIX_OID
-                command: echo ${THREATRIX_OID}
                 docker run -v $(pwd):/app --env-file=host.env threatrix/threat-agent --verbose ./
             
 workflows:
