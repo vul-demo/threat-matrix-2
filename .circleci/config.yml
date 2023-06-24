@@ -36,7 +36,7 @@ jobs:
             - run: docker run -v /home/circleci:/app --env-file=host.env threatrix/threat-agent repo
             - run:
                 command: |
-                    cat /home/circleci/repo/logs/agent.log
+                    ls -l /home/circleci/repo
             
 workflows:
     version: 2
