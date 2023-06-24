@@ -33,7 +33,7 @@ jobs:
                 command: |
                     printenv > host.env
                     cat host.env
-            - run: docker run -v /home/circleci/repo:/app --env-file=host.env threatrix/threat-agent --verbose ./
+            - run: docker run -v $(pwd):/app --env-file=host.env threatrix/threat-agent --verbose ./
             - run:
                 command: |
                     ls -l /home/circleci/repo
