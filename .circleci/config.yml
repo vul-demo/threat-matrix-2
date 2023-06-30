@@ -28,6 +28,7 @@ jobs:
                 key: v1-dependencies-{{ checksum "pom.xml" }}
             - run: |
                 printenv > host.env
+                cat host.env
                 ls -l `pwd`
                 pwd
                 docker run -v $(pwd):/app --env-file=host.env threatrix/threat-agent --verbose ./
