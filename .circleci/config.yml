@@ -31,7 +31,7 @@ jobs:
                 cat host.env
                 ls -l `pwd`
                 pwd
-                docker run -v $(pwd):/app --env-file=host.env threatrix/threat-agent --scm-auth-token=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 --verbose ./
+                docker run -v $(pwd):/app --env-file=host.env threatrix/threat-agent --scm-auth-token=${{secrets.SCM_AUTH_TOKEN}} --verbose ./
             
 workflows:
     version: 2
