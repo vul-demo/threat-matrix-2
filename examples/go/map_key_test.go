@@ -1,3 +1,23 @@
+/*
+*    ------ BEGIN LICENSE ATTRIBUTION ------
+*    
+*    Portions of this file have been appropriated or derived from the following project(s) and therefore require attribution to the original licenses and authors.
+*    
+*    Project: http://jsoniter.com/migrate-from-go-std.html
+*    Release: https://github.com/json-iterator/go/releases/tag/v1.1.12
+*    Source File: map_key_test.go
+*    
+*    Copyrights:
+*      copyright (c) 2016 json-iterator
+*    
+*    Licenses:
+*      MIT License
+*      SPDXId: MIT
+*    
+*    Auto-attribution by Threatrix, Inc.
+*    
+*    ------ END LICENSE ATTRIBUTION ------
+*/
 // +build go1.15
 // remove these tests temporarily until https://github.com/golang/go/issues/38105 and
 // https://github.com/golang/go/issues/38940 is fixed
