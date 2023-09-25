@@ -33,6 +33,8 @@ jobs:
                 pwd
                 docker run -v $(pwd):/app --env-file=host.env threatrix/threat-agent --verbose ./
                 cat agent/agent.log
+            - run: |
+                ls -l
             - store_artifacts:
                 path: agent/
 workflows:
