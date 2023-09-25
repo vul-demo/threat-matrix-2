@@ -33,9 +33,9 @@ jobs:
                 pwd
                 docker run -v $(pwd):/app --env-file=host.env threatrix/threat-agent --verbose ./
                 ls ./
-                cat /home/circleci/repo/log/agent.log
+                cat /home/circleci/repo/logs/agent.log
             - store_artifacts:
-                path: log/
+                path: logs/
 workflows:
     version: 2
     build_and_test:
