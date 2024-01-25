@@ -1,3 +1,46 @@
+/*
+*    ------ BEGIN LICENSE ATTRIBUTION ------
+*    
+*    Portions of this file have been appropriated or derived from the following project(s) and therefore require attribution to the original licenses and authors.
+*    
+*    Project: https://docs.microsoft.com/odata
+*    Release: https://github.com/OData/WebApi/releases/tag/v7.7.0
+*    Source File: CollectionExtensions.cs
+*    
+*    Copyrights:
+*      copyright (c) .net foundation and contributors. all rights reserved
+*    
+*    Licenses:
+*      MIT License
+*      SPDXId: MIT
+*    
+*    
+*    Release: https://github.com/aliostad/ApiActionSelector/releases/tag/master-4e73378
+*    Source File: ApiActionSelector.cs
+*    
+*    Copyrights:
+*      copyright (c) microsoft open technologies, inc. all rights reserved. see license.txt in the project root for license informa
+*    
+*    Licenses:
+*      Apache License 2.0
+*      SPDXId: Apache-2.0
+*    
+*    
+*    Project: https://docs.microsoft.com/odata
+*    Release: https://github.com/OData/WebApi/releases/tag/v3.1.3
+*    Source File: CollectionExtensions.cs
+*    
+*    Copyrights:
+*      copyright (c) microsoft open technologies, inc. all rights reserved. see license.txt in the project root for license informa
+*    
+*    Licenses:
+*      MIT License
+*      SPDXId: MIT
+*    
+*    Auto-attribution by Threatrix, Inc.
+*    
+*    ------ END LICENSE ATTRIBUTION ------
+*/
 ﻿// Copyright (c) .NET Foundation. All rights reserved.
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 
