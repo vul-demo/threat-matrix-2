@@ -4,7 +4,7 @@ jobs:
   execute-scan-workflow:
     uses: threatrix/threat-agent-scan/.github/workflows/scan-repo-reusable.yaml@master
     with:
-      eid: 67265b23-3e99-4d34-b4fb-86fc4464e4e7
+      eid: 2dda877b-6ece-4ed8-bdc0-035e492aa275
       oid: e27e3d74-1f61-48f4-a7fe-fbecd6ec3452
       app-name: threat-matrix-2
       trx-host: https://app.threatrix.io
